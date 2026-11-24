@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>Focus Timer</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@200;300&display=swap">
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <main id="app">
+    <header class="top chrome">
+      <div class="brand"><span id="dot" class="dot"></span><span>Focus</span></div>
+      <div class="top-right">
+        <span id="clock" class="clock"></span>
+        <button id="bgButton" class="icon-btn glass" type="button" aria-label="Change background" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7.5 12 12l9-4.5L12 3Z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <section id="stack" class="stack">
+      <div id="scrim" class="scrim" aria-hidden="true"></div>
+      <div class="time">
+        <div id="status" class="status chrome-soft">Ready</div>
+        <div id="digits" class="digits" role="timer" aria-live="off">25:00</div>
+        <div id="sub" class="sub chrome-soft">25 min session</div>
+      </div>
+
+      <div id="controls" class="controls chrome">
+        <div id="presets" class="segmented glass">
+          <button class="pill" type="button" data-min="5">5m</button>
+          <button class="pill" type="button" data-min="15">15m</button>
+          <button class="pill" type="button" data-min="25">25m</button>
+          <button class="pill" type="button" data-min="45">45m</button>
+          <button class="pill" type="button" data-min="60">60m</button>
+          <button class="pill" type="button" id="customBtn">Custom</button>
+        </div>
+
+        <form id="custom" class="segmented glass custom" hidden>
+          <label><input id="inH" class="num" type="number" inputmode="numeric" min="0" max="99" placeholder="0"><span>hr</span></label>
+          <label><input id="inM" class="num" type="number" inputmode="numeric" min="0" max="999" placeholder="0"><span>min</span></label>
+          <label><input id="inS" class="num" type="number" inputmode="numeric" min="0" max="9999" placeholder="0"><span>sec</span></label>
+          <button class="pill on" type="submit">Set</button>
+          <button id="cancelCustom" class="icon-btn plain" type="button" aria-label="Cancel custom time">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </form>
+
+        <div class="transport">
+          <button id="reset" class="round glass" type="button" aria-label="Reset timer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+          </button>
+          <button id="play" class="play" type="button" aria-label="Start timer">
+            <svg id="icoPlay" viewBox="0 0 24 24" aria-hidden="true" class="filled"><path d="M7 4.8v14.4a1 1 0 0 0 1.5.86l12-7.2a1 1 0 0 0 0-1.72l-12-7.2A1 1 0 0 0 7 4.8z"/></svg>
+            <svg id="icoPause" viewBox="0 0 24 24" aria-hidden="true" class="filled" hidden><rect x="6" y="4.5" width="4" height="15" rx="1.2"/><rect x="14" y="4.5" width="4" height="15" rx="1.2"/></svg>
+          </button>
+          <button id="plus" class="round glass" type="button" aria-label="Add one minute">+1</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button id="tapPause" class="tap-pause" type="button" aria-label="Pause timer" hidden></button>
+
+  <div id="picker" class="sheet-backdrop" hidden>
+    <div class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+      <div class="sheet-head">
+        <h2 id="pickerTitle">Background</h2>
+        <button id="closePicker" class="icon-btn plain" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div id="pickerGrid" class="picker-grid"></div>
+      <p class="hint">Space start / pause · B next background · F full screen</p>
+    </div>
+  </div>
+
+  <div id="error" class="error" hidden></div>
+
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>
